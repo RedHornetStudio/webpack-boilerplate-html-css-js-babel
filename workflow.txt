@@ -1,0 +1,212 @@
+//// first of all init package.json file which will track all installed packages
+npm init
+
+//// create .gitignore with following lines:
+
+...
+lines which will exclude node.js generated files (you can generate lines following by the link: https://www.toptal.com/developers/gitignore)
+...
+
+...
+lines which will exclude vscode generated files (you can generate lines following by the link: https://www.toptal.com/developers/gitignore)
+...
+
+//// create files and folders with following structure:
+src
+  main
+    assets
+      js
+        index.js // you need to import scss file into js file to bundle it
+        // et cetera
+      scss
+        style.scss
+        // et cetera
+      img
+        asfsd.jpg
+        // et cetera
+      fonts
+        dssdfsd.otf
+        // et cetera
+    index.html
+  about
+    assets
+      js
+        index.js // you need to import scss file into js file to bundle it
+        // et cetera
+      scss
+        style.scss
+        // et cetera
+      img
+        asfsd.jpg
+        // et cetera
+      fonts
+        dssdfsd.otf
+        // et cetera
+    index.html
+  // et cetera
+
+//// install following packages
+npm install webpack webpack-cli webpack-dev-server html-loader html-webpack-plugin sass-loader node-sass css-loader mini-css-extract-plugin file-loader babel-loader @babel/core @babel/preset-env --save-dev
+
+//// add to package.json new scripts which you will use to start development server or bundle html, scss and js files. For each page create two scripts for example: build-main and start-main, build-about and start-about
+"build-main": "webpack --mode production -c ./webpack.config/main.webpack.config.js",
+"start-main": "webpack serve --mode development -c ./webpack.config/main.webpack.config.js",
+"build-about": "webpack --mode production -c ./webpack.config/about.webpack.config.js",
+"start-about": "webpack serve --mode development -c ./webpack.config/about.webpack.config.js"
+
+//// create webpack.config folder with webpack.config.js files for each page for exapmle: webpack.config/main.webpack.config.js and webpack.config/about.webpack.config.js
+//main.webpack.config.js example:
+
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = {
+  entry: './src/main/assets/js/index.js',
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    filename: 'assets/js/bundle.js',
+    publicPath: ''
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, '../dist'),
+    publicPath: ''
+  },
+  module: {
+    rules: [
+      {
+        test: /\.html$/i,
+        use: ['html-loader']
+      },
+      {
+        test: /\.scss$/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../../',
+            },
+          }, 
+          'css-loader',
+          'sass-loader'
+        ]
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/img/[contenthash].[ext]'
+        }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/fonts/[contenthash].[ext]'
+        }
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/main/index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'assets/css/style.css'
+    })
+  ]
+};
+
+//about.webpack.config.js example:
+
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+module.exports = {
+  entry: './src/about/assets/js/index.js',
+  output: {
+    path: path.resolve(__dirname, '../dist/about'),
+    filename: 'assets/js/bundle.js',
+    publicPath: ''
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, '../dist/about'),
+    publicPath: ''
+  },
+  module: {
+    rules: [
+      {
+        test: /\.html$/i,
+        use: ['html-loader']
+      },
+      {
+        test: /\.scss$/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../../',
+            },
+          }, 
+          'css-loader',
+          'sass-loader'
+        ]
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/img/[contenthash].[ext]'
+        }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/fonts/[contenthash].[ext]'
+        }
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/about/index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'assets/css/style.css'
+    })
+  ]
+};
+
+//// run development server. To stop server use "ctrl + c"
+npm run start-main
+or
+npm run start-about
+
+//// to bundle html, scss and js files use following command:
+npm run build-main
+or
+npm run build-about
