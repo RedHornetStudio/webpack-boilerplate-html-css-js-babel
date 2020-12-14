@@ -151,7 +151,7 @@ module.exports = {
   ]
 };
 
-//about.webpack.config.js example:
+//about.webpack.config.js example: (change all "about" on your page name)
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -234,7 +234,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin(), //use lines from main.webpack.config.js if you will have some nested pages in this page
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/about/index.html'
