@@ -17,7 +17,26 @@ module.exports = {
     rules: [
       {
         test: /\.html$/i,
-        use: ['html-loader']
+        loader: 'html-loader',
+        options: {
+          attributes: {
+            list: [
+              // All default supported tags and attributes
+              '...',
+              {
+                tag: 'link',
+                attribute: 'href',
+                type: 'src',
+                filter: (tag, attribute, attributes, resourcePath) => {
+                  if (attributes.rel && attributes.rel.trim().toLowerCase() === 'icon') {
+                    return true;
+                  }
+                  return false;
+                }
+              }
+            ]
+          }
+        }
       },
       {
         test: /\.scss$/i,
