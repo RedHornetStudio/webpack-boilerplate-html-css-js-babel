@@ -46,7 +46,7 @@ src
   // et cetera
 
 //// install following packages
-npm install webpack webpack-cli webpack-dev-server html-loader html-webpack-plugin sass-loader node-sass css-loader mini-css-extract-plugin file-loader babel-loader @babel/core @babel/preset-env --save-dev
+npm install webpack webpack-cli webpack-dev-server html-loader html-webpack-plugin sass-loader node-sass css-loader mini-css-extract-plugin file-loader babel-loader @babel/core @babel/preset-env clean-webpack-plugin --save-dev
 
 //// add to package.json new scripts which you will use to start development server or bundle html, scss and js files. For each page create two scripts for example: build-main and start-main, build-about and start-about
 "build-main": "webpack --mode production -c ./webpack.config/main.webpack.config.js",
@@ -60,6 +60,7 @@ npm install webpack webpack-cli webpack-dev-server html-loader html-webpack-plug
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: './src/main/assets/js/index.js',
@@ -137,6 +138,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ['./assets/*', './index.html']
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/main/index.html'
@@ -152,6 +156,7 @@ module.exports = {
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: './src/about/assets/js/index.js',
@@ -229,6 +234,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/about/index.html'
