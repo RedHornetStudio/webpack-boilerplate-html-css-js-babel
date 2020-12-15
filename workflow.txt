@@ -48,11 +48,12 @@ src
 //// install following packages
 npm install webpack webpack-cli webpack-dev-server html-loader html-webpack-plugin sass-loader node-sass css-loader mini-css-extract-plugin file-loader babel-loader @babel/core @babel/preset-env clean-webpack-plugin --save-dev
 
-//// add to package.json new scripts which you will use to start development server or bundle html, scss and js files. For each page create two scripts for example: build-main and start-main, build-about and start-about
+//// add to package.json new scripts which you will use to start development server or bundle html, scss and js files. For each page create two scripts for example: build-main and start-main, build-about and start-about. To build all pages chain them into one script "build" using && (&& runs scripts sequentially)
 "build-main": "webpack --mode production -c ./webpack.config/main.webpack.config.js",
 "start-main": "webpack serve --mode development -c ./webpack.config/main.webpack.config.js",
 "build-about": "webpack --mode production -c ./webpack.config/about.webpack.config.js",
-"start-about": "webpack serve --mode development -c ./webpack.config/about.webpack.config.js"
+"start-about": "webpack serve --mode development -c ./webpack.config/about.webpack.config.js",
+"build": "npm run build-main && npm run build-about"
 
 //// create webpack.config folder with webpack.config.js files for each page for exapmle: webpack.config/main.webpack.config.js and webpack.config/about.webpack.config.js
 //main.webpack.config.js example:

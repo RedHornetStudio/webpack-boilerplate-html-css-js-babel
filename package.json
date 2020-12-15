@@ -8,7 +8,8 @@
     "build-main": "webpack --mode production -c ./webpack.config/main.webpack.config.js",
     "start-main": "webpack serve --mode development -c ./webpack.config/main.webpack.config.js",
     "build-about": "webpack --mode production -c ./webpack.config/about.webpack.config.js",
-    "start-about": "webpack serve --mode development -c ./webpack.config/about.webpack.config.js"
+    "start-about": "webpack serve --mode development -c ./webpack.config/about.webpack.config.js",
+    "build": "npm run build-main && npm run build-about"
   },
   "repository": {
     "type": "git",
