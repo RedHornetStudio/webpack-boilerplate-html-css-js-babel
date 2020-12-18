@@ -1,7 +1,7 @@
-//// first of all init package.json file which will track all installed packages
+# first of all init package.json file which will track all installed packages
 npm init
 
-//// create .gitignore with following lines:
+# create .gitignore with following lines:
 
 ...
 lines which will exclude node.js generated files (you can generate lines following by the link: https://www.toptal.com/developers/gitignore)
@@ -11,7 +11,7 @@ lines which will exclude node.js generated files (you can generate lines followi
 lines which will exclude vscode generated files (you can generate lines following by the link: https://www.toptal.com/developers/gitignore)
 ...
 
-//// create files and folders with following structure:
+# create files and folders with following structure:
 src
   main
     assets
@@ -45,18 +45,19 @@ src
     index.html
   // et cetera
 
-//// install following packages
+# install following packages
 npm install webpack webpack-cli webpack-dev-server html-loader html-webpack-plugin sass-loader node-sass css-loader mini-css-extract-plugin file-loader babel-loader @babel/core @babel/preset-env clean-webpack-plugin --save-dev
 
-//// add to package.json new scripts which you will use to start development server or bundle html, scss and js files. For each page create two scripts for example: build-main and start-main, build-about and start-about. To build all pages chain them into one script "build" using && (&& runs scripts sequentially)
+# add to package.json new scripts which you will use to start development server or bundle html, scss and js files. For each page create two scripts for example: build-main and start-main, build-about and start-about. To build all pages chain them into one script "build" using && (&& runs scripts sequentially)
 "build-main": "webpack --mode production -c ./webpack.config/main.webpack.config.js",
 "start-main": "webpack serve --mode development -c ./webpack.config/main.webpack.config.js",
 "build-about": "webpack --mode production -c ./webpack.config/about.webpack.config.js",
 "start-about": "webpack serve --mode development -c ./webpack.config/about.webpack.config.js",
 "build": "npm run build-main && npm run build-about"
 
-//// create webpack.config folder with webpack.config.js files for each page for exapmle: webpack.config/main.webpack.config.js and webpack.config/about.webpack.config.js
-//main.webpack.config.js example:
+# create webpack.config folder with webpack.config.js files for each page for exapmle: webpack.config/main.webpack.config.js and webpack.config/about.webpack.config.js
+
+## main.webpack.config.js example:
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -152,7 +153,7 @@ module.exports = {
   ]
 };
 
-//about.webpack.config.js example: (change all "about" on your page name)
+## about.webpack.config.js example: (change all "about" on your page name)
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -246,12 +247,8 @@ module.exports = {
   ]
 };
 
-//// run development server. To stop server use "ctrl + c"
+# to run development server use following command: (you need to run development server for each page separatly, to stop development server use "ctrl + c")
 npm run start-main
-or
-npm run start-about
 
-//// to bundle html, scss and js files use following command:
-npm run build-main
-or
-npm run build-about
+# to bundle html, scss and js files use following command:
+npm run build
