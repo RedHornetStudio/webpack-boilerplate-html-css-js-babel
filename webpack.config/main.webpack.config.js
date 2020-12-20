@@ -80,7 +80,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: ['./assets/*', './index.html']
+      cleanOnceBeforeBuildPatterns: ['./assets', './index.html']
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
